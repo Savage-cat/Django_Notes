@@ -1,0 +1,38 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<div class="container-post">
+    <article class="post-content">
+        <h1>{{ note.title }}</h1>
+        <p class="post-date">Дата: {{ note.created_date }}</p>
+        <p>{{ note.text }}</p>
+    </article>
+
+    <!-- Блок комментариев -->
+    <div class="comments-section">
+        <h4>Комментарии ({{ comments|length }})</h4>
+
+        {% for comment in comments %}
+        <div class="comment">
+            <p class="comment-author">Анонимус</p>
+            <p class="comment-text">{{ comment.text }}</p>
+        </div>
+
+        {% endfor %}
+
+
+        <!-- Форма добавления комментария -->
+        <div class="comment-form">
+            <h4>Добавить комментарий</h4>
+            <form action="{% url 'note_detail' note.id %}" method="post">
+                {% csrf_token %}
+                {{ comment_add_form }}
+
+                <button type="submit">Отправить</button>
+            </form>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

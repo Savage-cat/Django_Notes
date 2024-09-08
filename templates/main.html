@@ -1,0 +1,22 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+
+<div class="container">
+    <div class="main-content">
+        <h2>Ваша лента</h2>
+
+        <div class="post-card">
+            <h3><a href="#">{{ note.title }}</a></h3>
+            <p>{{ note.text }}</p>
+            <p class="date">{{ note.created_date }}</p>
+        </div>
+
+
+    </div>
+
+</div>
+
+
+{% endblock %}
