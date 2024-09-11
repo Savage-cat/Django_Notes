@@ -3,27 +3,30 @@
 {% block content %}
 
 <div class="container">
-    <div class="main-content">
-<h1>Добавление Заметки</h1>
+    <div class="col-md-6">
+        <h1>Добавление Заметки</h1>
 
-<form action="{% url 'note_add' %}" method="post">
-    {% csrf_token %}
-    <label for="{{ note_add_form.title.id_for_label }}">Заголовок</label><br>
-    {{ note_add_form.title }}
-    {{ note_add_form.title.errors }}<br>
+        <form action="{% url 'note_add' %}" method="post">
+            {% csrf_token %}
+            <div class="mb-3">
+                <label for="{{ note_add_form.title.id_for_label }}">Заголовок</label><br>
+                {{ note_add_form.title }}
+                {{ note_add_form.title.errors }}<br>
+            </div>
+            <div class="mb-3">
+                <label for="{{ note_add_form.text.id_for_label }}">Текст</label><br>
+                {{ note_add_form.text }}
+                {{ note_add_form.text.errors }}<br>
+            </div>
+            <div class="mb-3">
+                <label for="{{ note_add_form.category.id_for_label }}">Выберите категорию:</label>
+                <br>
+                {{ note_add_form.category }}
+                {{ note_add_form.non_field_errors }}<br>
+            </div>
+            <input type="submit" value="Добавить">
 
-    <label for="{{ note_add_form.text.id_for_label }}">Текст</label><br>
-    {{ note_add_form.text }}
-    {{ note_add_form.text.errors }}<br>
-
-     <label for="{{ note_add_form.category.id_for_label }}">Выберите категорию:</label>
-    <br>
-    {{ note_add_form.category }}
-    {{ note_add_form.non_field_errors }}<br>
-
-    <input type="submit" value="Добавить">
-
-</form>
+        </form>
     </div>
 </div>
 {% endblock %}

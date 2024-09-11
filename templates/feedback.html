@@ -5,14 +5,16 @@
 <div class="container">
     <div class="main-content">
 
-<h1>Обратная связь</h1>
-<form action="{% url 'feedback' %}" method="post">
-    {% csrf_token %}
-    {{ form.as_p }}
+        <h1>Обратная связь</h1>
+        <div class="col-md-6">
+            <form action="{% url 'feedback' %}" method="post">
+                {% csrf_token %}
+                {{ form.as_p }}
 
-    <input type="submit" value="Добавить">
+                <input class="mt-4" type="submit" value="Добавить">
 
-</form>
+            </form>
+        </div>
     </div>
 </div>
 {% endblock %}

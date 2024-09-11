@@ -3,32 +3,38 @@
 {% block content %}
 
 <div class="container">
-    <div class="main-content">
-        <h2>Список всех заметок</h2>
+    <div class="row">
+        <div class="col-md-8">
+            <div class="main-content">
+                <h2>Список всех заметок</h2>
 
-        {% for note in notes %}
-        <div class="post-card">
-            <h3><a href="{% url 'note_detail' note.id %}">{{ note.title }}</a></h3>
-            <p>{{ note.text }}</p>
-            <p class="date">{{ note.created_date }}</p>
+                {% for note in notes %}
+                <div class="post-card">
+                    <h3><a href="{% url 'note_detail' note.id %}">{{ note.title }}</a></h3>
+                    <p>{{ note.text }}</p>
+                    <p class="date">{{ note.created_date }}</p>
+                </div>
+                {% endfor %}
+            </div>
         </div>
-        {% endfor %}
 
-
+        <div class="col-md-4">
+            <aside class="sidebar">
+                <h2>Категории</h2>
+                <ul class="list-group">
+                    {% for category in categories %}
+                    {% if category.id == active_category.id %}
+                    <b>
+                        <li class="list-group-item active"><a href="?category={{ category.id }}">{{ category.title }}</a></li>
+                    </b>
+                    {% else %}
+                    <li class="list-group-item"><a href="?category={{ category.id }}">{{ category.title }}</a></li>
+                    {% endif %}
+                    {% endfor %}
+                </ul>
+            </aside>
+        </div>
     </div>
-
-    <aside class="sidebar">
-        <h2>Категории</h2>
-        <ul>
-            {% for category in categories %}
-                {% if category.id == active_category.id %}
-                    <b><li><a href="?category={{ category.id }}">{{ category.title }}</a></li></b>
-                {% else %}
-                    <li><a href="?category={{ category.id }}">{{ category.title }}</a></li>
-                {% endif %}
-            {% endfor %}
-        </ul>
-    </aside>
 </div>
 
 {% endblock %}
