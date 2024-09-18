@@ -1,5 +1,5 @@
 from django.shortcuts import render, redirect
-
+from django.contrib.auth.decorators import login_required
 from .models import Note, NoteCategory, NoteComment, Feedback
 from .forms import NoteAddForm, CommentAddForm, FeedbackForm, NoteAddModelForm
 
@@ -61,28 +61,31 @@ def note_detail(request, note_id):
     return render(request, 'note_detail.html', context)
 
 
+@login_required
 def note_add(request):
 
     categories = NoteCategory.objects.all()
     note_add_form = NoteAddModelForm()
 
     if request.method == "POST":
-        note_add_form = NoteAddForm(request.POST)
+        note_add_form = NoteAddModelForm(request.POST)
 
         if note_add_form.is_valid():
             data = note_add_form.cleaned_data
+            print(data)
 
+            profile = request.user.profile
             # добавили объект в базу
             Note.objects.create(title=data['title'],
                                 text=data['text'],
-                                category=data['category']
-                                )
+                                category=data['category'],
+                                profile=profile)
 
             return redirect('notes')
 
     context = {
-    'categories': categories,
-    "note_add_form": note_add_form
+        'categories': categories,
+        'note_add_form': note_add_form
     }
 
     return render(request, 'note_add.html', context)

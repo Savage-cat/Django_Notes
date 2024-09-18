@@ -1,5 +1,5 @@
 from django.db import models
-
+from user.models import Profile
 
 class NoteCategory(models.Model):
     title = models.CharField(max_length=255, verbose_name='Название')
@@ -11,6 +11,7 @@ class NoteCategory(models.Model):
     def __str__(self):
         return self.title
 
+
 class Note(models.Model):
     title = models.CharField(max_length=200)
     text = models.TextField()
@@ -21,6 +22,9 @@ class Note(models.Model):
                                  on_delete=models.SET_NULL,
                                  related_name='category_notes'
                                  )
+    profile = models.ForeignKey(Profile,
+                                related_name='profile_notes',
+                                on_delete=models.CASCADE)
 
     class Meta:
         verbose_name = 'Заметка'
