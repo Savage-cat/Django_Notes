@@ -77,3 +77,9 @@ class FeedbackForm(forms.Form):
         if len(name.split()) < 2:
             raise ValidationError('Введи хотя бы два слова')
         return name
+
+    def __init__(self, *args, **kwargs):
+
+        super(FeedbackForm, self).__init__(*args, **kwargs)
+        for visible in self.visible_fields():
+            visible.field.widget.attrs['class'] = 'form-control'
