@@ -19,7 +19,7 @@ def notes(request):
 
     if category:
         # достаем посты и фильтруем
-        notes = notes.filter(category__id=category)
+        notes = notes.filter(category__id=int(category))
         active_category = NoteCategory.objects.get(id=category)
 
     categories = NoteCategory.objects.all()
