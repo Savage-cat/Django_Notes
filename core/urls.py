@@ -10,6 +10,10 @@ urlpatterns = [
     path('notes/add', note_add, name='note_add'),
     path('feedback', feedback, name='feedback'),
     path('feedback/success', feedback_success, name='feedback_success'),
+
+    path('favorites/<int:profile_id>', favorites, name='favorites'),
+    path('unfavorites/<int:profile_id>', unfavorites, name='unfavorites'),
+
     # path('notes/<int:note_id>/comment/add', comment_add, name='comment_add')
     # path('notes/add_submit', note_add_submit, name='note_add_submit'),
 ]

@@ -59,3 +59,16 @@ class Feedback(models.Model):
 
     def __str__(self):
         return self.name
+
+class Favorites(models.Model):
+    profile = models.ForeignKey(Profile, on_delete=models.CASCADE,
+                                related_name='profile_followers')
+    author = models.ForeignKey(Profile, on_delete=models.CASCADE,
+                                related_name='profile_following')
+
+    class Meta:
+        verbose_name = 'Избранное'
+        verbose_name_plural = 'Избранное'
+
+    def __str__(self):
+        return self.profile.user.username

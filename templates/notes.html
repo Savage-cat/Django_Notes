@@ -32,6 +32,21 @@
                     {% endif %}
                     {% endfor %}
                 </ul>
+
+                <h2>Избранное</h2>
+                <ul class="list-group">
+                    {% for favorite in favorites %}
+
+                    {% if favorite.author.id == active_author.id %}
+
+                    <li class="list-group-item active"><a href="?author={{ favorite.author.id }}">{{ favorite.author.user }}</a>
+                    </li>
+
+                    {% else %}
+                    <li class="list-group-item"><a href="?author={{ favorite.author.id }}">{{ favorite.author.user }}</a></li>
+                    {% endif %}
+                    {% endfor %}
+
             </aside>
         </div>
     </div>

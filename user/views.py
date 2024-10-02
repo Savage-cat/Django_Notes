@@ -52,3 +52,15 @@ def register(request):
             return redirect('notes')
 
     return render(request, 'user/register.html', {'form': form})
+
+
+@login_required
+def home(request):
+    profile = request.user.profile
+
+    notes = profile.profile_notes.all()
+
+    # # альтернатиный вариант получения постов пользователя
+    # posts = Post.objects.filter(profile=profile)
+
+    return render(request, 'user/home.html', {'notes': notes})

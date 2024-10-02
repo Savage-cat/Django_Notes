@@ -1,6 +1,8 @@
-from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required
-from .models import Note, NoteCategory, NoteComment, Feedback
+from django.shortcuts import render, redirect
+
+from user.models import Profile
+from .models import Note, NoteCategory, NoteComment, Feedback, Favorites
 from .forms import NoteAddForm, CommentAddForm, FeedbackForm, NoteAddModelForm
 
 def main(request):
@@ -110,6 +112,28 @@ def feedback(request):
 def feedback_success(request):
     return render(request, 'feedback_success.html')
 
+
+@login_required
+def favorites(request, profile_id):
+
+    redirect_url = request.GET.get('next')
+    author = Profile.objects.get(id=profile_id)
+    profile = request.user.profile
+
+    Favorites.objects.get_or_create(author=author, profile=profile)
+
+    return redirect(redirect_url)
+
+@login_required
+def unfavorites(request, profile_id):
+
+    redirect_url = request.GET.get('next')
+    author = Profile.objects.get(id=profile_id)
+    profile = request.user.profile
+
+    Favorites.objects.filter(author=author, profile=profile).delete()
+
+    return redirect(redirect_url)
 
 
 
