@@ -4,9 +4,10 @@
 
 <div class="container">
     <div class="col-md-6">
+
         <h1>Добавление Заметки</h1>
 
-        <form action="{% url 'note_add' %}" method="post">
+        <form action="{% url 'note_edit' note_add_form.instance.id %}" method="post">
             {% csrf_token %}
             <div class="mb-3">
                 <label for="{{ note_add_form.title.id_for_label }}">Заголовок</label><br>
@@ -30,4 +31,3 @@
     </div>
 </div>
 {% endblock %}
-

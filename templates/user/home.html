@@ -1,0 +1,19 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<div class="container">
+    <div class="col-md-6">
+
+        <h1>Личный кабинет</h1>
+        <h3>Ваши посты</h3>
+
+        {% for note in notes %}
+            <p><a href="{% url 'note_detail' note.id %}">{{ note.title }}</a>
+            <a href="{% url 'note_edit' note.id %}">Редактировать</a>
+            </p>
+        {% endfor %}
+
+    </div>
+</div>
+{% endblock %}
