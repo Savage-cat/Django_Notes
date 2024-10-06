@@ -65,32 +65,30 @@
                 <h2>Избранное</h2>
                 <ul class="list-group">
                     {% for favorite in favorites %}
-<<<<<<< HEAD
+
                     {% if category.id == active_category.id %}
 
 
                     <li class="list-group-item active"><a href="?author={{ favorite.author.id }}">{{ favorite.author.user }}</a></li>
-=======
+
 
                     {% if favorite.author.id == active_author.id %}
 
                     <li class="list-group-item active"><a href="?author={{ favorite.author.id }}">{{ favorite.author.user }}</a>
                     </li>
->>>>>>> c52c09e8447acfbf2777152df967a118950ca9ec
 
                     {% else %}
                     <li class="list-group-item"><a href="?author={{ favorite.author.id }}">{{ favorite.author.user }}</a></li>
                     {% endif %}
+                    {% endif %}
                     {% endfor %}
-<<<<<<< HEAD
                 </ul>
-=======
 
->>>>>>> c52c09e8447acfbf2777152df967a118950ca9ec
             </aside>
         </div>
     </div>
 </div>
 
 {% endblock %}
+
 

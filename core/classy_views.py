@@ -58,10 +58,10 @@ class NoteSearchView(ListView):
     #     return context
 
 
-class PostAddView(LoginRequiredMixin, CreateView):
+class NoteAddView(LoginRequiredMixin, CreateView):
     """Представление для добавления нового поста"""
     form_class = NoteAddModelForm
-    template_name = 'Note_add.html'
+    template_name = 'note_add.html'
 
     def note(self, request, *args, **kwargs):
         """Переопределили метод обработки формы"""

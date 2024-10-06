@@ -10,7 +10,8 @@ urlpatterns = [
     path('notes', notes, name='notes'),
     path('notes/search', notes_search, name='notes_search'),
     path('notes/<int:note_id>', note_detail, name='note_detail'),
-    path('notes/add', note_add, name='note_add'),
+    path('notes/add', NoteAddView.as_view(), name='note_add'),
+    # path('notes/add', note_add, name='note_add'),
     path('notes/<int:note_id>/edit', note_edit, name='note_edit'),
 
     path('feedback', FeedbackView.as_view(), name='feedback'),

@@ -9,20 +9,20 @@
         <form action="{% url 'note_add' %}" method="post">
             {% csrf_token %}
             <div class="mb-3">
-                <label for="{{ note_add_form.title.id_for_label }}">Заголовок</label><br>
-                {{ note_add_form.title }}
-                {{ note_add_form.title.errors }}<br>
+                <label for="{{ form.title.id_for_label }}">Заголовок</label><br>
+                {{ form.title }}
+                {{ form.title.errors }}<br>
             </div>
             <div class="mb-3">
-                <label for="{{ note_add_form.text.id_for_label }}">Текст</label><br>
-                {{ note_add_form.text }}
-                {{ note_add_form.text.errors }}<br>
+                <label for="{{ form.text.id_for_label }}">Текст</label><br>
+                {{ form.text }}
+                {{ form.text.errors }}<br>
             </div>
             <div class="mb-3">
-                <label for="{{ note_add_form.category.id_for_label }}">Выберите категорию:</label>
+                <label for="{{ form.category.id_for_label }}">Выберите категорию:</label>
                 <br>
-                {{ note_add_form.category }}
-                {{ note_add_form.non_field_errors }}<br>
+                {{ form.category }}
+                {{ form.non_field_errors }}<br>
             </div>
             <input type="submit" value="Добавить">
 

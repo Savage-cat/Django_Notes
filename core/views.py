@@ -1,10 +1,10 @@
 from django.contrib.auth.decorators import login_required
-<<<<<<< HEAD
+
 from django.core.paginator import Paginator
 from django.db.models import Q
 from django.http import Http404
-=======
->>>>>>> c52c09e8447acfbf2777152df967a118950ca9ec
+
+
 from django.shortcuts import render, redirect
 
 from user.models import Profile
