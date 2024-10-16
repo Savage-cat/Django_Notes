@@ -10,9 +10,9 @@
         {% if user.is_authenticated %}
         {% if user.profile != note.profile %}
         {% if not in_favorites %}
-        <b><a href="{% url 'favorites' note.profile.id %}?next={% url 'note_detail' note.id %}">Добавить в избранное</a></b>
+        <b><a id="FavoriteButton" href="{% url 'api_favorites' note.profile.id %}?next={% url 'note_detail' note.id %}">Добавить в избранное</a></b>
         {% else %}
-        <b><a href="{% url 'unfavorites' note.profile.id %}?next={% url 'note_detail' note.id %}">Убрать из избранного</a></b>
+        <b><a id="UnfavoriteButton" href="{% url 'api_unfavorites' note.profile.id %}?next={% url 'note_detail' note.id %}">Убрать из избранного</a></b>
         {% endif %}
         {% endif %}
         {% endif%}
