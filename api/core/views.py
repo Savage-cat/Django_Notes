@@ -25,7 +25,7 @@ def favorites(request, profile_id):
 
     Favorites.objects.get_or_create(author=author, profile=profile)
 
-    return JsonResponse({"status": "OK"})
+    return JsonResponse({"message": "добавлено в избранное"})
 
 @login_required
 def unfavorites(request, profile_id):

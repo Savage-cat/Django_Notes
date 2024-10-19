@@ -68,10 +68,12 @@ class Favorites(models.Model):
                                 related_name='profile_followers')
     author = models.ForeignKey(Profile, on_delete=models.CASCADE,
                                 related_name='profile_following')
+    note = models.ForeignKey(Note, on_delete=models.CASCADE)
 
     class Meta:
         verbose_name = 'Избранное'
         verbose_name_plural = 'Избранное'
+        unique_together = ('author', 'note')
 
     def __str__(self):
         return self.profile.user.username

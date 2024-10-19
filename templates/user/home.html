@@ -9,13 +9,13 @@
         <h3>Ваши посты</h3>
 
         {% for note in notes %}
-<<<<<<< HEAD
+
             <p><a href="{% url 'note_detail' note.id %}">{{ note.title }}</a>
             <a href="{% url 'note_edit' note.id %}">Редактировать</a>
             </p>
-=======
+
             <p><a href="{% url 'note_detail' note.id %}">{{ note.title }}</a></p>
->>>>>>> c52c09e8447acfbf2777152df967a118950ca9ec
+
         {% endfor %}
 
     </div>
