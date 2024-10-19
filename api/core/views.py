@@ -3,7 +3,7 @@ from django.http import JsonResponse
 from django.shortcuts import redirect
 
 from core.forms import FeedbackForm
-from core.models import Note, Favorites
+from core.models import Note, Favorites, NoteComment
 from user.models import Profile
 
 
@@ -52,3 +52,18 @@ def feedback(request):
             return JsonResponse({"message": "Обратная связь отправлена"})
         else:
             return JsonResponse({'errors': form.errors}, status=400)
+
+
+def note_comments(request, note_id):
+    note = Note.objects.get(id=note_id)
+    comments = NoteComment.objects.filter(note=note)
+
+    new_comments = []
+
+    for comment in comments:
+        new_comments.append({
+            'text': comment.text,
+            'profile': comment.profile.user.username
+        })
+
+    return JsonResponse({"comments": new_comments}, safe=False)

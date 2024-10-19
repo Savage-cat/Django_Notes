@@ -1,5 +1,5 @@
 {% extends 'base.html' %}
-
+{% load static %}
 {% block content %}
 
 <div class="container-post">
@@ -49,3 +49,8 @@
 </div>
 
 {% endblock %}
+
+    {% block extra_js %}
+    <script src="test.js"></script>
+    <script src="{% static 'js/note_detail.js' %}"> </script>
+    {% endblock %}

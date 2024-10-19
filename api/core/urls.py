@@ -10,4 +10,6 @@ urlpatterns = [
     path('notes/<int:profile_id>/favorites', favorites, name='api_favorites'),
     path('notes/<profile_id>/unfavorites', unfavorites, name='api_unfavorites'),
     path('feedback', feedback, name='api_feedback'),
+
+    path('notes/<int:note_id>/comments', note_comments, name='api_note_comments'),
 ]
