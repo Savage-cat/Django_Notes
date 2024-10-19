@@ -8,7 +8,9 @@
         <h1>Обратная связь</h1>
 
         <div class="col-md-6">
-            <form action="{% url 'feedback' %}" method="post">
+            <form id="feedbackForm" action="{% url 'api_feedback' %}" method="post">
+
+                <div class="formErrors"></div>
                 {% csrf_token %}
                 {{ form.as_p }}
 
