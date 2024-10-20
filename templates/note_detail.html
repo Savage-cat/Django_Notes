@@ -38,7 +38,8 @@
         <!-- Форма добавления комментария -->
         <div class="comment-form">
             <h4>Добавить комментарий</h4>
-            <form action="{% url 'note_detail' note.id %}" method="post">
+            <div style="color:red" class="formErrors"></div>
+            <form id="CommentForm" action="{% url 'comments_add_rest' note.id %}" method="post">
                 {% csrf_token %}
                 {{ comment_add_form }}
 
