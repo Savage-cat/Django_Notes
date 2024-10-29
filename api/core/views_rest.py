@@ -1,9 +1,10 @@
 from rest_framework.response import Response
 from rest_framework.decorators import api_view
+import random
 
 from core.models import NoteComment, Note
 
-from .serializers import CommentsSerializer
+from .serializers import CommentsSerializer, NoteSerializer
 
 @api_view(['GET'])
 def test_view(request):
@@ -32,3 +33,24 @@ def comments_add_rest(request, note_id):
 
     return Response(status=200)
 
+
+@api_view(['GET'])
+def clicks(request):
+    return Response({'clicks': random.randint(1, 100)})
+
+@api_view(['GET'])
+def comments(request):
+
+    comments = NoteComment.objects.all()
+    serializer = CommentsSerializer(comments, many=True)
+
+    return Response({'comments': serializer.data})
+
+
+@api_view(['GET'])
+def notes(request):
+
+    notes = Note.objects.all()
+    serializer = NoteSerializer(notes, many=True)
+
+    return Response({'notes': serializer.data})

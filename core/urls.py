@@ -20,6 +20,7 @@ urlpatterns = [
     path('favorites/<int:profile_id>', favorites, name='favorites'),
     path('unfavorites/<int:profile_id>', unfavorites, name='unfavorites'),
 
+    path('vue', vue, name='vue')
     # path('notes/<int:note_id>/comment/add', comment_add, name='comment_add')
     # path('notes/add_submit', note_add_submit, name='note_add_submit'),
 ]

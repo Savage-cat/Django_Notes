@@ -42,7 +42,9 @@ class NoteComment(models.Model):
                              on_delete=models.CASCADE,
                              related_name='note_comments'
                              )
-
+    profile = models.ForeignKey(Profile,
+                                related_name='profile_comments',
+                                on_delete=models.CASCADE)
     class Meta:
         verbose_name = 'Комментарий'
         verbose_name_plural = 'Комментарии'

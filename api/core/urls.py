@@ -17,4 +17,9 @@ urlpatterns = [
     path('rest', test_view, name='api_rest_test'),
     path('rest/notes/<int:note_id>/comments', comments_list_rest, name='comments_list_rest'),
     path('rest/notes/<int:note_id>/comments/add', comments_add_rest, name='comments_add_rest'),
+
+    path('rest/clicks', clicks, name='clicks'),
+    path('rest/comments', comments, name='api_rest_comments'),
+    path('rest/notes', notes, name='api_rest_notes')
+
 ]

@@ -245,6 +245,11 @@ def unfavorites(request, profile_id):
     return redirect(redirect_url)
 
 
+def vue(request):
+    return render(request, 'vue.html')
+
+
+
 
 # def comment_add(request, note_id):
 #

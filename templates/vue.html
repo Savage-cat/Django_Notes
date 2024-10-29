@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+</head>
+<body>
+
+<h1>Тут будет использоваться vue.js </h1>
+
+<div id="app">
+    <h2 v-if="clicks>=10" style="color:blue">Вы набрали десять очков </h2>
+    <h2 v-if="clicks>=50" style="color:blue" ><a href="https://ya.ru">Секретная ссылка </a></h2>
+    [[ message ]]
+    <p>Мое имя: [[ name ]]</p>
+    <p>Cчетчик кликов [[ clicks ]]</p>
+    <button @click="addScore">Клик</button>
+    <button @click="getBonusClicks">Бонусные клики</button>
+
+    <ul>Cписок дел
+        <li v-for="task in todo">[[ task ]]</li>
+    </ul>
+
+    <ul>Мои покупки
+        <li v-for="product in products">Название: [[ product.name ]], Цена [[ product.price ]]</li>
+    </ul>
+
+     <ul>Список фильмов
+        <li v-for="film in films">[[ film ]]</li>
+    </ul>
+    <p>Cчетчик новых кликов [[ clicks2 ]]</p>
+    <button @click="addMoreScore">Клик</button>
+
+    </ul>
+
+
+
+</div>
+
+<script>
+    const { createApp } = Vue
+
+    createApp({
+      delimiters: ['[[', ']]'],
+      data() {
+        return {
+          message: 'Hello vue!',
+          name: 'Жека',
+          clicks: 0,
+          clicks2: 0,
+          todo: ['Поспать', 'погулять', 'купить машину'],
+          products: [{name: 'яблоко', price: '20'}, {name: 'молоко', price: '100'}],
+          films: ['Назад в будущее', 'Терминатор', 'Пираты карибского моря']
+          }
+        },
+        methods: {
+            addScore(){
+                this.clicks = this.clicks + 1
+            },
+            addMoreScore(){
+                this.clicks2 = this.clicks2 + 5
+            },
+            getBonusClicks(){
+                 const baseUrl = 'http://127.0.0.1:8000/'
+                 axios.get(`${baseUrl}/api/rest/clicks`)
+                    .then(response => {
+                        this.clicks += response.data.clicks;
+                    })
+            },
+
+            getComments(){
+                axios.get(`${this.baseUrl}/api/rest/comments`)
+                .then(response => {
+                    this.comments = response.data.comments
+                })
+            },
+            getNotes(){
+                axios.get(`${this.baseUrl}/api/rest/notes`)
+                .then(response => {
+                    this.notes = response.data.notes
+                })
+            }
+        }
+    }).mount('#app')
+</script>
+
+</body>
+</html>

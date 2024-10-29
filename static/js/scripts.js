@@ -1,7 +1,7 @@
 // Обработка клика по ссылке избранное
 $('#FavoriteButton').click(function(e) {
     e.preventDefault();
-    let baseUrl = 'http://localhost:8000/';
+    let baseUrl = 'http://127.0.0.1:8000/';
 
     $.ajax({
         type: 'GET',
@@ -18,7 +18,7 @@ $('#FavoriteButton').click(function(e) {
 // Обработка клика по по ссылке убрать из избранного
 $('#UnfavoriteButton').click(function(e) {
     e.preventDefault();
-    let baseUrl = 'http://localhost:8000/';
+    let baseUrl = 'http://127.0.0.1:8000/';
 
     $.ajax({
         type: 'GET',
@@ -33,7 +33,7 @@ $('#UnfavoriteButton').click(function(e) {
 
 $('#feedbackForm').on('submit', function (e) {
     e.preventDefault();
-    let baseUrl = 'http://localhost:8000/';
+    let baseUrl = 'http://127.0.0.1:8000/';
 
     $.ajax({
         type: 'POST',

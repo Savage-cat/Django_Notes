@@ -2,7 +2,7 @@
 {% load static %}
 {% block content %}
 
-<div class="container-post">
+<div class="container-post" data-note-id="{{ note.id }}" id="note">
     <article class="post-content">
         <h1>{{ note.title }}</h1>
         <p class="post-date">Дата: {{ note.created_date }}</p>
@@ -24,15 +24,14 @@
 
     <!-- Блок комментариев -->
     <div class="comments-section">
-        <h4>Комментарии ({{ comments|length }})</h4>
+        <h4>Комментарии ([[ comments.length ]])</h4>
 
-        {% for comment in comments %}
-        <div class="comment">
-            <p class="comment-author">{{ comment.profile.user.username }}</p>
-            <p class="comment-text">{{ comment.text }}</p>
+
+        <div class="comment" v-for="comment in comments">
+            <p class="comment-author">[[ comment.profile ]]</p>
+            <p class="comment-text">[[ comment.text ]]</p>
         </div>
-
-        {% endfor %}
+    </div>
 
 
         <!-- Форма добавления комментария -->
@@ -47,11 +46,39 @@
             </form>
         </div>
     </div>
-</div>
+
 
 {% endblock %}
 
     {% block extra_js %}
+
+ <script>
+        const { createApp } = Vue
+
+        createApp({
+          delimiters: ['[[', ']]'],
+          data() {
+            return {
+              baseUrl: 'http://127.0.0.1:8000/',
+              message: 'Hello vue!',
+              comments: []
+              }
+            },
+            methods: {
+                getComments(){
+                    let note_id = document.getElementById('note').dataset.noteId;
+                    axios.get(`${this.baseUrl}/api/rest/notes/${note_id}/comments`)
+                    .then(response => {
+                        this.comments = response.data.comments
+                    })
+                }
+            },
+            mounted (){
+                this.getComments()
+            }
+        }).mount('#note')
+    </script>
+
     <script src="test.js"></script>
     <script src="{% static 'js/note_detail.js' %}"> </script>
     {% endblock %}

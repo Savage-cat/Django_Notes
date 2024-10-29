@@ -1,6 +1,8 @@
 from rest_framework import serializers
 
-from core.models import NoteComment
+from core.models import NoteComment, Note
+
+
 class CommentsSerializer(serializers.Serializer):
     id = serializers.IntegerField(read_only=True)
     text = serializers.CharField(max_length=10)
@@ -24,4 +26,8 @@ class CommentsSerializer(serializers.Serializer):
         # NoteComment.objects.create(**validated_data)
 
 
+class NoteSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Note
+        fields = '__all__'
 

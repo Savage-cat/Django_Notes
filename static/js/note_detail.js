@@ -1,8 +1,8 @@
 
 
 function loadComments(){
-    let baseUrl = 'http://localhost:8000/';
-    let postId = $('.container-post').data('note-id')
+    let baseUrl = 'http://127.0.0.1:8000/';
+    let noteId = $('.container-post').data('note-id')
 
     $.ajax({
         type: 'GET',
@@ -21,6 +21,37 @@ function loadComments(){
     })
 }
 
-$(document).ready(function (){
-    loadComments();
+// Обработка клика по кнопке отправить комментарий
+$('#CommentForm').on('submit', function (e) {
+    e.preventDefault();
+    let baseUrl = 'http://127.0.0.1:8000/';
+
+    $.ajax({
+        type: 'POST',
+        url: $(this).attr('action'),
+        data: {
+            text: $('#id_text').val(),
+            csrfmiddlewaretoken: $('input[name="csrfmiddlewaretoken"]').val()
+        },
+        success: function(response) {
+            loadComments()
+            $('#CommentForm')[0].reset()
+            $('.formErrors').html('')
+        },
+        error: function(response){
+            const errors = response.responseJSON
+            let err = ''
+            for (let field in errors) {
+                for (let error of errors[field]) {
+                        err += '<p>' + error + '</p>'
+                }
+            }
+            $('.formErrors').html(err)
+
+        }
+    })
 })
+
+//$(document).ready(function (){
+//    loadComments();
+//})
