@@ -54,3 +54,11 @@ def notes(request):
     serializer = NoteSerializer(notes, many=True)
 
     return Response({'notes': serializer.data})
+
+
+@api_view(['POST'])
+def film_add_rest(request):
+
+    print(request.data)
+
+    return Response({'film': request.data})

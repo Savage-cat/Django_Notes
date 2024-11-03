@@ -23,6 +23,7 @@
 
 
     <!-- Блок комментариев -->
+
     <div class="comments-section">
         <h4>Комментарии ([[ comments.length ]])</h4>
 
@@ -37,15 +38,23 @@
         <!-- Форма добавления комментария -->
         <div class="comment-form">
             <h4>Добавить комментарий</h4>
-            <div style="color:red" class="formErrors"></div>
-            <form id="CommentForm" action="{% url 'comments_add_rest' note.id %}" method="post">
+            <div style="color:red" class="formErrors">
+                <ul>
+               <li v-for="error in commentForm.errors.text" >[[ error ]]</li>
+            </ul>
+            </div>
+
+            <form @submit.prevent="addComment" id="CommentForm" action="{% url 'comments_add_rest' note.id %}" method="post">
                 {% csrf_token %}
-                {{ comment_add_form }}
+<!--                {{ comment_add_form }}-->
+                 <div>
+                <label for="id_text">Текст:</label>
+                <input v-model="commentForm.text" type="text" name="text" maxlength="1000" required="" id="id_text">
+                </div>
 
                 <button type="submit">Отправить</button>
             </form>
         </div>
-    </div>
 
 
 {% endblock %}
@@ -61,7 +70,11 @@
             return {
               baseUrl: 'http://127.0.0.1:8000/',
               message: 'Hello vue!',
-              comments: []
+              comments: [],
+              commentForm: {
+                    text: '',
+                    errors: {}
+                }
               }
             },
             methods: {
@@ -71,7 +84,27 @@
                     .then(response => {
                         this.comments = response.data.comments
                     })
-                }
+                },
+
+                addComment(){
+                    const csrf_token = document.querySelector('[name=csrfmiddlewaretoken]').value
+                    const payload = this.commentForm
+                    let note_id = document.getElementById('note').dataset.noteId;
+
+                    axios.defaults.headers.common['X-CSRFToken'] = csrf_token;
+                    axios.note(`${this.baseUrl}/api/rest/notes/${note_id}/comments/add`, payload)
+
+                    .then(response => {
+                        this.getComments()
+                        this.commentForm.text = ''
+                        this.commentForm.errors = {}
+                    })
+                    .catch(error => {
+                        this.commentForm.errors = error.response.data
+                        console.log(this.commentForm.errors)
+                    }
+                )
+              }
             },
             mounted (){
                 this.getComments()
@@ -80,5 +113,5 @@
     </script>
 
     <script src="test.js"></script>
-    <script src="{% static 'js/note_detail.js' %}"> </script>
+<!--    <script src="{% static 'js/note_detail.js' %}"> </script>-->
     {% endblock %}

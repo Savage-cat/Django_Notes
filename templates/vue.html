@@ -32,8 +32,32 @@
     </ul>
     <p>Cчетчик новых кликов [[ clicks2 ]]</p>
     <button @click="addMoreScore">Клик</button>
+<br>
+<br>
+     <button @click="getNotes">Загрузить комментарии</button>
 
+    <ul>Комментарии
+        <li v-for="comment in comments"> [[ comment.text ]], Имя: [[ comment.profile ]] ID: [[ comment.id ]]</li>
     </ul>
+
+    <button @click="getNotes">Загрузить заметки</button>
+
+    <ul>Заметки
+        <li v-for="note in notes"> [[ note.title ]]</li>
+    </ul>
+
+    <h2>Форма добавления отзыва на фильм</h2>
+    <form @submit.prevent="addFilm" action="{% url 'film_add' %}" method="post">
+        {% csrf_token %}
+        <label>Название фильма</label>
+        <p><input v-model="filmForm.title" id="title" name="title" type="text"></p>
+        <label>Описание фильма</label>
+        <p><input v-model="filmForm.text" id="text" name="text" type="text"></p>
+        <button type="submit">Добавить</button>
+    </form>
+
+    <h2>[[ filmForm.title ]]</h2>
+
 
 
 
@@ -46,10 +70,17 @@
       delimiters: ['[[', ']]'],
       data() {
         return {
+            filmForm: {
+                title: '',
+                text: ''
+          },
+          baseUrl: 'http://127.0.0.1:8000/',
           message: 'Hello vue!',
           name: 'Жека',
           clicks: 0,
           clicks2: 0,
+          comments: [],
+          posts: [],
           todo: ['Поспать', 'погулять', 'купить машину'],
           products: [{name: 'яблоко', price: '20'}, {name: 'молоко', price: '100'}],
           films: ['Назад в будущее', 'Терминатор', 'Пираты карибского моря']
@@ -80,6 +111,16 @@
                 axios.get(`${this.baseUrl}/api/rest/notes`)
                 .then(response => {
                     this.notes = response.data.notes
+                })
+            },
+            addFilm(){
+                const csrf_token = document.querySelector('[name=csrfmiddlewaretoken]').value
+                const payload = this.filmForm
+
+                axios.defaults.headers.common['X-CSRFToken'] = csrf_token;
+                axios.post(`${this.baseUrl}/api/rest/film`, payload)
+                .then(response => {
+                    console.log(response.data.film)
                 })
             }
         }

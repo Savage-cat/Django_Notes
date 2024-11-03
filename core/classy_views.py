@@ -63,7 +63,7 @@ class NoteAddView(LoginRequiredMixin, CreateView):
     form_class = NoteAddModelForm
     template_name = 'note_add.html'
 
-    def note(self, request, *args, **kwargs):
+    def post(self, request, *args, **kwargs):
         """Переопределили метод обработки формы"""
         form = self.get_form()
         if form.is_valid():

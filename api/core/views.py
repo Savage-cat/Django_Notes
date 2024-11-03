@@ -67,3 +67,13 @@ def note_comments(request, note_id):
         })
 
     return JsonResponse({"comments": new_comments}, safe=False)
+
+
+def film_add(request):
+
+    # Выводим данные формы
+    print(request.POST)
+
+    # вот здесь происходит обработка формы
+
+    return redirect('vue')

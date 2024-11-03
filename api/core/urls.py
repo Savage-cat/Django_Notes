@@ -20,6 +20,9 @@ urlpatterns = [
 
     path('rest/clicks', clicks, name='clicks'),
     path('rest/comments', comments, name='api_rest_comments'),
-    path('rest/notes', notes, name='api_rest_notes')
+    path('rest/notes', notes, name='api_rest_notes'),
+
+    path('rest/film', film_add_rest, name='api_rest_film_add'),
+    path('film', film_add, name='film_add'),
 
 ]
