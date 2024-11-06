@@ -92,7 +92,7 @@
                     let note_id = document.getElementById('note').dataset.noteId;
 
                     axios.defaults.headers.common['X-CSRFToken'] = csrf_token;
-                    axios.note(`${this.baseUrl}/api/rest/notes/${note_id}/comments/add`, payload)
+                    axios.post(`${this.baseUrl}/api/rest/notes/${note_id}/comments/add`, payload)
 
                     .then(response => {
                         this.getComments()
@@ -115,3 +115,4 @@
     <script src="test.js"></script>
 <!--    <script src="{% static 'js/note_detail.js' %}"> </script>-->
     {% endblock %}
+    </div>
